@@ -65,6 +65,38 @@ class TextStyles {
     fontWeight: FontWeight.w400,
     color: AppColors.background,
   );
+
+  static final amountIndicator = GoogleFonts.montserrat(
+    fontSize: 25,
+    fontWeight: FontWeight.w600,
+    color: AppColors.green,
+  );
+
+  static final titleIndicator = GoogleFonts.inter(
+    fontSize: 15,
+    fontWeight: FontWeight.w400,
+    color: AppColors.background,
+  );
+
+  static final subTitleIndicator = GoogleFonts.inter(
+    decoration: TextDecoration.underline,
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: AppColors.background,
+  );
+
+  static final subTitleWhith = GoogleFonts.inter(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: AppColors.background,
+  );
+
+  static final subTitleGreen = GoogleFonts.inter(
+    fontSize: 15,
+    fontWeight: FontWeight.w400,
+    color: AppColors.green,
+  );
+
   static final buttonBoldPrimary = GoogleFonts.inter(
     fontSize: 15,
     fontWeight: FontWeight.w700,
