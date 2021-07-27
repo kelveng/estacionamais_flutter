@@ -1,0 +1,24 @@
+{
+    "data": {
+      "prices": [
+        {
+          "entryHour": 0,
+          "exitHour": 1,
+          "price": 10.2
+        },
+        {
+          "entryHour": 2,
+          "exitHour": 5,
+          "price": 20.2
+        }
+      ],
+      "balance": {
+        "date": "2021-07-26T18:30:50.100+00:00",
+        "amount": 100.00
+      },
+      "capacitySpace": {
+        "totalParkingLotsCount": 10,
+        "occupiedParkingLots": 10
+      }
+    }
+  }
