@@ -6,7 +6,7 @@ import 'package:estaciona_mais/app/features/home/domain/repositories/dashboard_r
 import 'package:estaciona_mais/app/features/home/domain/usecases/get_dashboard_usecase.dart';
 import 'package:estaciona_mais/app/features/home/domain/usecases/use_case.dart';
 import 'package:estaciona_mais/app/features/home/external/api/dashboard_datasource_api.dart';
-import 'package:estaciona_mais/app/features/home/presentation/bloc/home_bloc.dart';
+import 'package:estaciona_mais/app/features/home/presentation/bloc/home_cubit.dart';
 import 'package:estaciona_mais/app/features/home/presentation/pages/home_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
