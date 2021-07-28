@@ -3,8 +3,8 @@ import 'package:estaciona_mais/app/features/home/external/api/client/request_log
 
 class CustomDio {
   Dio newDio() {
-    final client = Dio();
-    client.options.baseUrl = 'https://estacionamaisbackend.herokuapp.com/api';
+    var client = Dio(
+        BaseOptions(baseUrl: 'https://estacionamaisbackend.herokuapp.com/api'));
     client.interceptors.add(ResquestLogInterceptor());
     return client;
   }
