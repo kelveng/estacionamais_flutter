@@ -18,9 +18,9 @@ class DashboardDataSourceApi implements DashboardDataSource {
 
     try {
       final response = await dio.get("/dashboard");
-
+      print(response.data);
       final data = response.data;
-      final DashBoardModel dashBoardModel = DashBoardModel.fromJson(data);
+      final DashBoardModel dashBoardModel = DashBoardModel.fromMap(data);
       return dashBoardModel;
     } on DioError catch (e) {
       if (e.response.statusCode == 404) {
