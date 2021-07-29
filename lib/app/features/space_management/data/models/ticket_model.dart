@@ -1,25 +1,13 @@
 import 'dart:convert';
 
-class Ticket {
-  final int id;
-  final String plate;
-  final int spaceId;
-  final DateTime entryTime;
-  final DateTime exitTime;
-  final String status;
-  final double amount;
+import 'package:estaciona_mais/app/features/space_management/domain/entities/ticket.dart';
 
-  Ticket(
-    this.id,
-    this.plate,
-    this.spaceId,
-    this.entryTime,
-    this.exitTime,
-    this.status,
-    this.amount,
-  );
+class TicketModel extends Ticket {
+  TicketModel(int id, String plate, int spaceId, DateTime entryTime,
+      DateTime exitTime, String status, double amount)
+      : super(id, plate, spaceId, entryTime, exitTime, status, amount);
 
-  Ticket copyWith({
+  TicketModel copyWith({
     int id,
     String plate,
     int spaceId,
@@ -28,7 +16,7 @@ class Ticket {
     String status,
     double amount,
   }) {
-    return Ticket(
+    return TicketModel(
       id ?? this.id,
       plate ?? this.plate,
       spaceId ?? this.spaceId,
@@ -39,25 +27,28 @@ class Ticket {
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMapPayment() {
     return {
-      'id': id,
-      'plate': plate,
+      'ticketId': id,
       'spaceId': spaceId,
-      'entryTime': entryTime.millisecondsSinceEpoch,
-      'exitTime': exitTime.millisecondsSinceEpoch,
-      'status': status,
       'amount': amount,
     };
   }
 
-  factory Ticket.fromMap(Map<String, dynamic> map) {
-    return Ticket(
+  Map<String, dynamic> toMapCancel() {
+    return {
+      'ticketId': id,
+      'spaceId': spaceId,
+    };
+  }
+
+  factory TicketModel.fromMap(Map<String, dynamic> map) {
+    return TicketModel(
       map['id'],
       map['plate'],
-      map['spaceId'],
-      DateTime.fromMillisecondsSinceEpoch(map['entryTime']),
-      DateTime.fromMillisecondsSinceEpoch(map['exitTime']),
+      map['space_id'],
+      DateTime.parse(map['entry_time']),
+      map['exit_time'] != null ? DateTime.parse(map['exit_time']) : null,
       map['status'],
       map['amount'],
     );
@@ -65,7 +56,8 @@ class Ticket {
 
   String toJson() => json.encode(toMap());
 
-  factory Ticket.fromJson(String source) => Ticket.fromMap(json.decode(source));
+  factory TicketModel.fromJson(String source) =>
+      Ticket.fromMap(json.decode(source));
 
   @override
   String toString() {
