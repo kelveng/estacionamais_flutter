@@ -6,7 +6,6 @@ import 'package:estaciona_mais/app/features/home/data/models/dashboard_model.dar
 import 'package:estaciona_mais/app/features/home/data/models/price_list_model.dart';
 import 'package:estaciona_mais/app/features/home/data/models/price_model.dart';
 import 'package:estaciona_mais/app/features/home/data/repositories/dashboard_repository_impl.dart';
-import 'package:estaciona_mais/app/features/home/domain/entities/entities.dart';
 import 'package:estaciona_mais/app/features/home/domain/exceptions/failure.dart';
 import 'package:estaciona_mais/app/features/home/domain/repositories/dashboard_repository.dart';
 import 'package:flutter_test/flutter_test.dart';

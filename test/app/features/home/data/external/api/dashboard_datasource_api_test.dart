@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:estaciona_mais/app/common/network/network_info.dart';
 import 'package:estaciona_mais/app/features/home/data/datasources/dashboard_datasource.dart';
@@ -54,11 +54,11 @@ void main() {
 
     test("Should get a DashBoardModel", () async {
       final file = new File('test/resources/dashboard.json');
-      final json = await file.readAsString();
+      final jsonResponse = json.decode(await file.readAsString());
       when(networkInfo.isConnected)
           .thenAnswer((realInvocation) => Future.value(true));
       when(mockDio.get(any)).thenAnswer((realInvocation) async =>
-          await Response(statusCode: 200, data: json));
+          await Response(statusCode: 200, data: jsonResponse));
 
       final result = await dataSource.getDashboard();
 
