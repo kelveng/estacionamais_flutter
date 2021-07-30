@@ -8,22 +8,22 @@ abstract class GetTicketByIdUseCase<Type, Params> {
   Future<Either<Failure, Type>> call(Params params);
 }
 
-class GetTicketById extends GetTicketByIdUseCase<Ticket, Params> {
+class GetTicketById extends GetTicketByIdUseCase<Ticket, ParamsId> {
   final SpaceManagementRepository repository;
 
   GetTicketById(this.repository);
 
   @override
-  Future<Either<Failure, Ticket>> call(Params params) async {
+  Future<Either<Failure, Ticket>> call(ParamsId params) async {
     if (params.ticketId <= 0) return Left(InvalidTicketFailure());
     return await repository.getTicket(params.ticketId);
   }
 }
 
-class Params extends Equatable {
+class ParamsId extends Equatable {
   final int ticketId;
 
-  Params(this.ticketId);
+  ParamsId(this.ticketId);
 
   @override
   List<Object> get props => [];

@@ -16,20 +16,20 @@ void main() {
   final CancelTicketUseCase cancelTicketUseCase = CancelTicket(repository);
   group("cancelTicket", () {
     test("Should get a TicketProcessedFailure error", () async {
-      TicketModel ticketModel =
-          TicketModel(1, "NML-1122", 1, DateTime.now(), DateTime.now(), "2", 0);
+      TicketModel ticketModel = TicketModel(
+          1, "NML-1122", 1, DateTime.now(), DateTime.now(), "2", 0, "20:00");
       final result = await cancelTicketUseCase(ticketModel);
       expect(result.fold((l) => l, (r) => r), isA<TicketProcessedFailure>());
     });
 
-    test("Should get a Ticket", () async {
+    test("Should get a true", () async {
       TicketModel ticketModel = TicketModel(
-          1, "NML-1122", 1, DateTime.now(), DateTime.now(), "1", 10);
+          1, "NML-1122", 1, DateTime.now(), DateTime.now(), "1", 10, "20:00");
 
-      when(repository.paymentTicket(ticketModel)).thenAnswer(
-          (realInvocation) async => Future.value(Right(ticketModel)));
+      when(repository.cancelTicket(ticketModel))
+          .thenAnswer((realInvocation) async => Future.value(Right(true)));
       final result = await cancelTicketUseCase(ticketModel);
-      expect(result.fold((l) => l, (r) => r), isA<Ticket>());
+      expect(result.fold((l) => l, (r) => r), isA<bool>());
     });
   });
 }

@@ -7,8 +7,15 @@ class CustomTextFieldWidget extends StatelessWidget {
   final TextEditingController controller;
   final String title;
   final String hintText;
+  final bool enable;
+  final String initialValue;
   const CustomTextFieldWidget(
-      {Key key, this.controller, this.title, this.hintText})
+      {Key key,
+      this.controller,
+      this.title,
+      this.hintText,
+      this.enable = true,
+      this.initialValue})
       : super(key: key);
 
   @override
@@ -21,13 +28,16 @@ class CustomTextFieldWidget extends StatelessWidget {
         ),
         Container(
           width: 150,
+          height: 40,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
           decoration: BoxDecoration(
             color: AppColors.greyLight,
             borderRadius: BorderRadius.circular(20),
           ),
-          child: TextField(
+          child: TextFormField(
+            initialValue: initialValue,
             maxLines: 1,
+            enabled: enable,
             inputFormatters: [UpperCaseTextFormatter()],
             textAlign: TextAlign.center,
             controller: controller,

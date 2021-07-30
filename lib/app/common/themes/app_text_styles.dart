@@ -85,11 +85,14 @@ class TextStyles {
     color: AppColors.green,
   );
 
-  static final titleBoxProcess = GoogleFonts.inter(
+  static final titleBoxProcessGreen = GoogleFonts.inter(
     fontSize: 25,
     fontWeight: FontWeight.w600,
     color: AppColors.green,
   );
+
+  static final titleBoxProcessRed = GoogleFonts.inter(
+      fontSize: 25, fontWeight: FontWeight.w600, color: AppColors.red);
 
   static final titleIndicator = GoogleFonts.inter(
     fontSize: 15,

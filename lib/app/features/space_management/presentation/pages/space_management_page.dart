@@ -5,6 +5,7 @@ import 'package:estaciona_mais/app/features/space_management/data/models/space_m
 import 'package:estaciona_mais/app/features/space_management/domain/entities/entities.dart';
 import 'package:estaciona_mais/app/features/space_management/presentation/bloc/space_management_cubit.dart';
 import 'package:estaciona_mais/app/features/space_management/presentation/bloc/space_management_state.dart';
+import 'package:estaciona_mais/app/features/space_management/presentation/widgets/management_ticket_widget.dart';
 import 'package:estaciona_mais/app/features/space_management/presentation/widgets/process_ticket_widget.dart';
 import 'package:estaciona_mais/app/features/space_management/presentation/widgets/space_container.dart';
 import 'package:flutter/material.dart';
@@ -75,11 +76,13 @@ class _SpaceManagamentPageState extends State<SpaceManagamentPage> {
 
   Widget _buildOption(state) {
     if (state is RegisterEntryState) {
+      print(state.hour);
       return Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           ProcessTicketWidget(
-            isLoading: false,
+            isLoading: state.isLoadingHour,
+            hourNow: state.hour,
             spaceDescription: state.space.description,
             onPressConfirm: (place) => cubit.createTicket(state.space, place),
             onPressCancel: () => cubit.backToMap(),
@@ -96,6 +99,24 @@ class _SpaceManagamentPageState extends State<SpaceManagamentPage> {
             spaceDescription: state.space.description,
             onPressConfirm: (place) => cubit.createTicket(state.space, place),
             onPressCancel: () => cubit.backToMap(),
+          )
+        ],
+      );
+    }
+    if (state is ManagmentTicketState) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          ManagementTicketWidget(
+            ticket: state.ticket,
+            isLoading: state.isLoading,
+            hasError: state.error.isNotEmpty,
+            message: state.error,
+            spaceDescription: state.space.description,
+            onPressConfirm: () =>
+                cubit.paymentTicket(state.space, state.ticket),
+            onPressCancel: () => cubit.cancelTicket(state.space, state.ticket),
+            onPressBack: () => cubit.backToMap(),
           )
         ],
       );

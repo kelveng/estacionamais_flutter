@@ -4,8 +4,9 @@ import 'package:estaciona_mais/app/features/space_management/domain/entities/tic
 
 class TicketModel extends Ticket {
   TicketModel(int id, String plate, int spaceId, DateTime entryTime,
-      DateTime exitTime, String status, double amount)
-      : super(id, plate, spaceId, entryTime, exitTime, status, amount);
+      DateTime exitTime, String status, double amount, String duration)
+      : super(
+            id, plate, spaceId, entryTime, exitTime, status, amount, duration);
 
   TicketModel copyWith({
     int id,
@@ -24,6 +25,7 @@ class TicketModel extends Ticket {
       exitTime ?? this.exitTime,
       status ?? this.status,
       amount ?? this.amount,
+      duration ?? this.duration,
     );
   }
 
@@ -51,13 +53,12 @@ class TicketModel extends Ticket {
       map['exit_time'] != null ? DateTime.parse(map['exit_time']) : null,
       map['status'],
       map['amount'],
+      map['duration'],
     );
   }
 
-  String toJson() => json.encode(toMap());
-
   factory TicketModel.fromJson(String source) =>
-      Ticket.fromMap(json.decode(source));
+      TicketModel.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -75,7 +76,8 @@ class TicketModel extends Ticket {
         other.entryTime == entryTime &&
         other.exitTime == exitTime &&
         other.status == status &&
-        other.amount == amount;
+        other.amount == amount &&
+        other.duration == duration;
   }
 
   @override
@@ -86,6 +88,7 @@ class TicketModel extends Ticket {
         entryTime.hashCode ^
         exitTime.hashCode ^
         status.hashCode ^
-        amount.hashCode;
+        amount.hashCode ^
+        duration.hashCode;
   }
 }

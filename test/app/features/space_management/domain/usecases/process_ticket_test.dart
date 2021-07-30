@@ -25,7 +25,7 @@ void main() {
 
     test("Should get a Ticket", () async {
       TicketModel ticketModel = TicketModel(
-          1, "NML-1122", 1, DateTime.now(), DateTime.now(), "2", 10);
+          1, "NML-1122", 1, DateTime.now(), DateTime.now(), "2", 10, "20:00");
       when(repository.processTicket("NML-1122", 1)).thenAnswer(
           (realInvocation) async => Future.value(Right(ticketModel)));
       final result = await processTicketUseCase(Params(1, "NML-1122"));

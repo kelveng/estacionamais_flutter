@@ -69,7 +69,7 @@ class SpaceManagamentDataSourceImpl implements SpaceManagementDataSource {
     if (!isConnected) throw NoConnectionFailure();
 
     try {
-      final response = await dio.get("ticket/$ticketId");
+      final response = await dio.get("/ticket/$ticketId");
       final Ticket ticket = TicketModel.fromMap(response.data);
       return ticket;
     } on DioError catch (e) {
@@ -128,6 +128,25 @@ class SpaceManagamentDataSourceImpl implements SpaceManagementDataSource {
       } else {
         throw ServerFailure();
       }
+    } catch (e) {
+      throw GenericFailure();
+    }
+  }
+
+  @override
+  Future<String> getHour() async {
+    bool isConnected = await networkInfo.isConnected;
+
+    if (!isConnected) throw NoConnectionFailure();
+
+    try {
+      final response = await dio.get("/time");
+      return response.data["hour"];
+    } on DioError catch (e) {
+      if (e.response.statusCode == 404) {
+        throw ResourceNotFoundFailure();
+      }
+      throw ServerFailure();
     } catch (e) {
       throw GenericFailure();
     }

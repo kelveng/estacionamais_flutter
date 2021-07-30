@@ -29,77 +29,76 @@ class ProcessTicketWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     hourController.text = hourNow;
     placeController.text = place;
-    return Material(
-      child: Container(
-        height: 260,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.0),
-          color: AppColors.white,
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.shadow,
-              blurRadius: 2.0,
-              spreadRadius: 0.0,
-              offset: Offset(8.0, 8.0), // shadow direction: bottom right
-            )
-          ],
-        ),
-        width: double.infinity,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Text(
-                "Vaga $spaceDescription",
-                style: TextStyles.titleBoxProcess,
-              ),
+    return Container(
+      height: 260,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.0),
+        color: AppColors.white,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.shadow,
+            blurRadius: 2.0,
+            spreadRadius: 0.0,
+            offset: Offset(8.0, 8.0), // shadow direction: bottom right
+          )
+        ],
+      ),
+      width: double.infinity,
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Text(
+              "Vaga $spaceDescription",
+              style: TextStyles.titleBoxProcessGreen,
             ),
-            Padding(
-              padding: EdgeInsets.all(10),
-              child: Container(
-                height: 1,
-                color: AppColors.greyLight,
-              ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: Container(
+              height: 1,
+              color: AppColors.greyLight,
             ),
-            Container(
-              height: 100,
-              width: double.infinity,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  CustomTextFieldWidget(
-                    controller: placeController,
-                    title: "Placa Veículo",
-                    hintText: "ZZZ9999",
-                  ),
-                  CustomTextFieldWidget(
-                    controller: hourController,
-                    title: "Hora Entrada",
-                    hintText: "ZZZ9999",
-                  ),
-                ],
-              ),
+          ),
+          Container(
+            height: 100,
+            width: double.infinity,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                CustomTextFieldWidget(
+                  controller: placeController,
+                  title: "Placa Veículo",
+                  hintText: "ZZZ9999",
+                ),
+                CustomTextFieldWidget(
+                  enable: false,
+                  controller: hourController,
+                  title: "Hora Entrada",
+                  hintText: "99:99",
+                ),
+              ],
             ),
-            _buildMessage(),
-            isLoading
-                ? Center(child: CircularProgressIndicator())
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      CustomButtonWidget(
-                        backGroundColor: AppColors.green,
-                        title: "Cancelar",
-                        onPress: onPressCancel,
-                      ),
-                      CustomButtonWidget(
-                        backGroundColor: AppColors.green,
-                        title: "Confirmar",
-                        onPress: () => onPressConfirm(placeController.text),
-                      )
-                    ],
-                  )
-          ],
-        ),
+          ),
+          _buildMessage(),
+          isLoading
+              ? Center(child: CircularProgressIndicator())
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    CustomButtonWidget(
+                      backGroundColor: AppColors.green,
+                      title: "Voltar",
+                      onPress: onPressCancel,
+                    ),
+                    CustomButtonWidget(
+                      backGroundColor: AppColors.green,
+                      title: "Entrada",
+                      onPress: () => onPressConfirm(placeController.text),
+                    )
+                  ],
+                )
+        ],
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'package:estaciona_mais/app/features/space_management/domain/exceptions/f
 abstract class SpaceManagementRepository {
   Future<Either<Failure, List<Space>>> getAllSpaces();
   Future<Either<Failure, Ticket>> getTicket(int ticketId);
+  Future<Either<Failure, String>> getHourNow();
   Future<Either<Failure, Ticket>> processTicket(String plate, int spaceId);
   Future<Either<Failure, Ticket>> paymentTicket(Ticket ticket);
   Future<Either<Failure, bool>> cancelTicket(Ticket ticket);

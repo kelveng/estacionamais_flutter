@@ -7,14 +7,14 @@ abstract class CancelTicketUseCase<Type, Params> {
   Future<Either<Failure, Type>> call(Params params);
 }
 
-class CancelTicket extends CancelTicketUseCase<Ticket, Ticket> {
+class CancelTicket extends CancelTicketUseCase<bool, Ticket> {
   final SpaceManagementRepository repository;
 
   CancelTicket(this.repository);
 
   @override
-  Future<Either<Failure, Ticket>> call(Ticket ticket) async {
+  Future<Either<Failure, bool>> call(Ticket ticket) async {
     if (ticket.status != "1") return Left(TicketProcessedFailure());
-    return await repository.paymentTicket(ticket);
+    return await repository.cancelTicket(ticket);
   }
 }

@@ -6,6 +6,7 @@ import 'package:estaciona_mais/app/features/space_management/domain/entities/tic
 abstract class SpaceManagementDataSource {
   Future<List<Space>> getAllSpaces();
   Future<Ticket> getTicket(int ticketId);
+  Future<String> getHour();
   Future<Ticket> processTicket(ProcessTicketModel processTicketModel);
   Future<Ticket> paymentTicket(TicketModel ticket);
   Future<bool> cancelTicket(TicketModel ticket);

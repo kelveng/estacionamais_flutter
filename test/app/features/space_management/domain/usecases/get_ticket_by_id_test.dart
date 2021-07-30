@@ -11,20 +11,20 @@ import 'space_management_repository_mock.mocks.dart';
 
 void main() {
   final SpaceManagementRepository repository = MockSpaceManagementRepository();
-  final GetTicketByIdUseCase<Ticket, Params> getTicketByIdUseCase =
+  final GetTicketByIdUseCase<Ticket, ParamsId> getTicketByIdUseCase =
       GetTicketById(repository);
   group("getTicketById", () {
     test("Should get a InvalidTicketFailure error", () async {
-      final result = await getTicketByIdUseCase(Params(0));
+      final result = await getTicketByIdUseCase(ParamsId(0));
       expect(result.fold((l) => l, (r) => r), isA<InvalidTicketFailure>());
     });
 
     test("Should get a Ticket", () async {
       TicketModel ticketModel = TicketModel(
-          1, "NML-1122", 1, DateTime.now(), DateTime.now(), "2", 10);
+          1, "NML-1122", 1, DateTime.now(), DateTime.now(), "2", 10, "20:00");
       when(repository.getTicket(1)).thenAnswer(
           (realInvocation) async => Future.value(Right(ticketModel)));
-      final result = await getTicketByIdUseCase(Params(1));
+      final result = await getTicketByIdUseCase(ParamsId(1));
       expect(result.fold((l) => l, (r) => r), isA<Ticket>());
     });
   });

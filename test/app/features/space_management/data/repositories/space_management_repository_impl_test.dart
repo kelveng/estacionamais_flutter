@@ -82,8 +82,8 @@ void main() {
     });
 
     test("Should get a Ticket", () async {
-      final TicketModel ticket = TicketModel(
-          1, "TEST-1234", 1, DateTime.now(), DateTime.now(), "1", 100.24);
+      final TicketModel ticket = TicketModel(1, "TEST-1234", 1, DateTime.now(),
+          DateTime.now(), "1", 100.24, "20:00");
       when(spaceManagementDataSource.processTicket(any))
           .thenAnswer((realInvocation) async => await Future.value(ticket));
       final result = await repository.processTicket("TEST-1234", 1);
@@ -94,8 +94,8 @@ void main() {
   });
 
   group("paymentTicket", () {
-    final TicketModel ticket = TicketModel(
-        1, "TEST-1234", 1, DateTime.now(), DateTime.now(), "2", 100.24);
+    final TicketModel ticket = TicketModel(1, "TEST-1234", 1, DateTime.now(),
+        DateTime.now(), "2", 100.24, "20:00");
     test("Should get a NoConnectionFailure error", () async {
       when(spaceManagementDataSource.paymentTicket(any))
           .thenThrow(NoConnectionFailure());
@@ -132,7 +132,7 @@ void main() {
 
   group("cancelTicket", () {
     final TicketModel ticket = TicketModel(
-        1, "NMK-1212", 2, DateTime.now(), DateTime.now(), "2", 120.00);
+        1, "NMK-1212", 2, DateTime.now(), DateTime.now(), "2", 120.00, "20:00");
     test("Should get a NoConnectionFailure error", () async {
       when(spaceManagementDataSource.cancelTicket(any))
           .thenThrow(NoConnectionFailure());
@@ -168,8 +168,8 @@ void main() {
   });
 
   group("getTicket", () {
-    final TicketModel ticket = TicketModel(
-        1, "TEST-1234", 1, DateTime.now(), DateTime.now(), "2", 100.24);
+    final TicketModel ticket = TicketModel(1, "TEST-1234", 1, DateTime.now(),
+        DateTime.now(), "2", 100.24, "20:00");
     test("Should get a NoConnectionFailure error", () async {
       when(spaceManagementDataSource.getTicket(any))
           .thenThrow(NoConnectionFailure());

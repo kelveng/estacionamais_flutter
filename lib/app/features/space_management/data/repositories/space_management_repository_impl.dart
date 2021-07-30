@@ -73,4 +73,16 @@ class SpaceManagementRepositoryImpl implements SpaceManagementRepository {
       return Left(GenericFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, String>> getHourNow() async {
+    try {
+      final String hour = await dataSource.getHour();
+      return Right(hour);
+    } on Failure catch (e) {
+      return Left(e);
+    } catch (e) {
+      return Left(GenericFailure());
+    }
+  }
 }

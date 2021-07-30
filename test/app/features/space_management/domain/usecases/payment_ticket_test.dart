@@ -16,14 +16,14 @@ void main() {
   group("paymentTicket", () {
     test("Should get a InvalidAmountFailure error", () async {
       TicketModel ticketModel = TicketModel(
-          1, "NML-1122", 1, DateTime.now(), DateTime.now(), "2", -10);
+          1, "NML-1122", 1, DateTime.now(), DateTime.now(), "2", -10, "20:00");
       final result = await paymentTicketUseCase(ticketModel);
       expect(result.fold((l) => l, (r) => r), isA<InvalidAmountFailure>());
     });
 
     test("Should get a Ticket", () async {
       TicketModel ticketModel = TicketModel(
-          1, "NML-1122", 1, DateTime.now(), DateTime.now(), "2", 10);
+          1, "NML-1122", 1, DateTime.now(), DateTime.now(), "2", 10, "20:00");
 
       when(repository.paymentTicket(ticketModel)).thenAnswer(
           (realInvocation) async => Future.value(Right(ticketModel)));

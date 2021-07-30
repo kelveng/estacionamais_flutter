@@ -146,7 +146,7 @@ void main() {
 
   group("cancelTicket", () {
     final TicketModel ticket = TicketModel(
-        1, "NMK-1212", 2, DateTime.now(), DateTime.now(), "2", 120.00);
+        1, "NMK-1212", 2, DateTime.now(), DateTime.now(), "2", 120.00, "20:00");
     test("Should get a ResourceNotFoundFailure error", () async {
       when(networkInfo.isConnected)
           .thenAnswer((realInvocation) => Future.value(true));
@@ -210,7 +210,7 @@ void main() {
 
   group("getTicketSpace", () {
     final TicketModel ticket = TicketModel(
-        1, "NMK-1212", 2, DateTime.now(), DateTime.now(), "2", 120.00);
+        1, "NMK-1212", 2, DateTime.now(), DateTime.now(), "2", 120.00, "20:00");
     test("Should get a ResourceNotFoundFailure error", () async {
       when(networkInfo.isConnected)
           .thenAnswer((realInvocation) => Future.value(true));
@@ -324,7 +324,7 @@ void main() {
 
   group("paymentTicket", () {
     final TicketModel ticket = TicketModel(
-        1, "NMK-1212", 2, DateTime.now(), DateTime.now(), "2", 120.00);
+        1, "NMK-1212", 2, DateTime.now(), DateTime.now(), "2", 120.00, "20:00");
     test("Should get a ResourceNotFoundFailure error", () async {
       when(networkInfo.isConnected)
           .thenAnswer((realInvocation) => Future.value(true));
