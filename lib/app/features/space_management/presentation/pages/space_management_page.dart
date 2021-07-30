@@ -76,7 +76,6 @@ class _SpaceManagamentPageState extends State<SpaceManagamentPage> {
 
   Widget _buildOption(state) {
     if (state is RegisterEntryState) {
-      print(state.hour);
       return Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [

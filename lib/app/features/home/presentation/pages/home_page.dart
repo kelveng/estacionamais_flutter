@@ -1,4 +1,5 @@
 import 'package:estaciona_mais/app/common/components/dashboard_container_component.dart';
+import 'package:estaciona_mais/app/common/navagate/routes.dart';
 import 'package:estaciona_mais/app/common/themes/app_colors.dart';
 import 'package:estaciona_mais/app/features/home/data/models/price_model.dart';
 import 'package:estaciona_mais/app/features/home/domain/entities/entities.dart';
@@ -82,10 +83,16 @@ class _HomePageState extends State<HomePage> {
       color: AppColors.secondary,
       child: Column(
         children: [
-          SpaceIndicatorWidget(
-              max: dashboard.capacitySpace.totalParkingLotsCount,
-              current: dashboard.capacitySpace.occupiedParkingLots,
-              height: spaceIndicatorHeight),
+          GestureDetector(
+            onTap: () async {
+              await Modular.to.pushNamed(Routes.spaceManagament);
+              cubit.loadDashboard();
+            },
+            child: SpaceIndicatorWidget(
+                max: dashboard.capacitySpace.totalParkingLotsCount,
+                current: dashboard.capacitySpace.occupiedParkingLots,
+                height: spaceIndicatorHeight),
+          ),
           BalanceResumeWidget(
             height: balanceResumeHeight,
             amount: dashboard.balanceResume.amount,
