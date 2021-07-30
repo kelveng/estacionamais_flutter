@@ -25,11 +25,24 @@ class TextStyles {
     color: AppColors.secondary,
   );
 
+  static final appNameBoldWhite = GoogleFonts.montserrat(
+    fontSize: 25,
+    fontWeight: FontWeight.w800,
+    color: AppColors.white,
+  );
+
   static final titleBoldBackground = GoogleFonts.lexendDeca(
     fontSize: 20,
     fontWeight: FontWeight.w600,
     color: AppColors.secondary,
   );
+
+  static final titleBoldProcessTicket = GoogleFonts.inter(
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+    color: AppColors.secondary,
+  );
+
   static final titleListTile = GoogleFonts.lexendDeca(
     fontSize: 17,
     fontWeight: FontWeight.w600,
@@ -67,6 +80,12 @@ class TextStyles {
   );
 
   static final amountIndicator = GoogleFonts.montserrat(
+    fontSize: 25,
+    fontWeight: FontWeight.w600,
+    color: AppColors.green,
+  );
+
+  static final titleBoxProcess = GoogleFonts.inter(
     fontSize: 25,
     fontWeight: FontWeight.w600,
     color: AppColors.green,
@@ -130,12 +149,12 @@ class TextStyles {
   static final captionShape = GoogleFonts.inter(
     fontSize: 13,
     fontWeight: FontWeight.w400,
-    color: AppColors.shape,
+    color: AppColors.white,
   );
-  static final captionBody = GoogleFonts.inter(
-    fontSize: 13,
+  static final textErrormessage = GoogleFonts.inter(
+    fontSize: 15,
     fontWeight: FontWeight.w400,
-    color: AppColors.body,
+    color: AppColors.red,
   );
   static final captionBoldBackground = GoogleFonts.inter(
     fontSize: 13,
@@ -145,7 +164,7 @@ class TextStyles {
   static final captionBoldShape = GoogleFonts.inter(
     fontSize: 13,
     fontWeight: FontWeight.w600,
-    color: AppColors.shape,
+    color: AppColors.white,
   );
   static final captionBoldBody = GoogleFonts.inter(
     fontSize: 13,

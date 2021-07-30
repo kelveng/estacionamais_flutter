@@ -1,8 +1,8 @@
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dio/dio.dart';
+import 'package:estaciona_mais/app/features/space_management/space_management_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'common/network/network_info.dart';
-import 'features/home/home_module.dart';
 
 class AppModule extends Module {
   @override
@@ -14,6 +14,6 @@ class AppModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ModuleRoute(Modular.initialRoute, module: HomeModule()),
+    ModuleRoute(Modular.initialRoute, module: SpaceManamentModule()),
   ];
 }
