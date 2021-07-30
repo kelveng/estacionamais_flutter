@@ -16,9 +16,7 @@ class DashboardRepositoryImpl implements DashBoardRepository {
       final DashBoardModel dashboardModel =
           await dashboardDataSource.getDashboard();
       return Right(dashboardModel);
-    } on NoConnectionFailure catch (e) {
-      return Left(e);
-    } on ServerFailure catch (e) {
+    } on Failure catch (e) {
       return Left(e);
     } catch (e) {
       return Left(GenericFailure());
