@@ -1,6 +1,7 @@
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import 'package:estaciona_mais/app/common/navagate/routes.dart';
+import 'package:estaciona_mais/app/features/extract/extract_module.dart';
 import 'package:estaciona_mais/app/features/home/home_module.dart';
 import 'package:estaciona_mais/app/features/space_management/space_management_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -18,5 +19,6 @@ class AppModule extends Module {
   final List<ModularRoute> routes = [
     ModuleRoute(Routes.home, module: HomeModule()),
     ModuleRoute(Routes.spaceManagament, module: SpaceManamentModule()),
+    ModuleRoute(Routes.extract, module: ExtractModule()),
   ];
 }

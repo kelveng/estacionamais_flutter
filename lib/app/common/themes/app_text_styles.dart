@@ -73,10 +73,10 @@ class TextStyles {
     fontWeight: FontWeight.w400,
     color: AppColors.grey,
   );
-  static final buttonBackground = GoogleFonts.inter(
-    fontSize: 15,
+  static final textFilterDate = GoogleFonts.inter(
+    fontSize: 17,
     fontWeight: FontWeight.w400,
-    color: AppColors.background,
+    color: AppColors.white,
   );
 
   static final amountIndicator = GoogleFonts.montserrat(

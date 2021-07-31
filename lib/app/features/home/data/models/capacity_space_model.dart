@@ -26,7 +26,7 @@ class CapacitySpaceModel extends CapacitySpace {
   factory CapacitySpaceModel.fromMap(Map<String, dynamic> map) {
     return CapacitySpaceModel(
       map['totalParkingLotsCount'],
-      map['occupiedParkingLots'],
+      map['occupiedParkingLots'] ?? 0,
     );
   }
 

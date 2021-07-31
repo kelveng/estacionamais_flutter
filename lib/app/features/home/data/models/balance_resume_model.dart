@@ -42,7 +42,7 @@ class BalanceResumeModel extends BalanceResume {
   factory BalanceResumeModel.fromMap(Map<String, dynamic> map) {
     return BalanceResumeModel(
       date: DateTime.parse(map['date']),
-      amount: map['amount'] is int ? map['amount'] * 1.0 : map['amount'],
+      amount: map['amount'] != null ? map['amount'] * 1.0 : 0,
     );
   }
 

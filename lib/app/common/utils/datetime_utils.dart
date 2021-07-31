@@ -5,6 +5,12 @@ class DateTimeUtils {
     return ret;
   }
 
+  static String getDayMonthText(DateTime dateTime) {
+    final String ret =
+        '${dateTime.day.toString().padLeft(2, '0')}/${dateTime.month.toString().padLeft(2, '0')}';
+    return ret;
+  }
+
   static String getDateFormatServer(DateTime dateTime) {
     final String ret =
         '${dateTime.year.toString()}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}';
