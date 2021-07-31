@@ -11,6 +11,7 @@ class ExtractCubit extends Cubit<ExtractState> {
   ExtractCubit(this._getExtractUseCase) : super(ExtractInitial(DateTime.now()));
 
   void loadExtract() async {
+    emit(RefreshState(_date));
     final result = await _getExtractUseCase(Params(_date));
     result.fold((error) {
       if (error is NoConnectionFailure)
@@ -29,13 +30,12 @@ class ExtractCubit extends Cubit<ExtractState> {
 
   void backDate() async {
     _date = _date.subtract(Duration(days: 1));
-    emit(RefreshState(_date));
+
     loadExtract();
   }
 
   void nextDate() async {
     _date = _date.add(Duration(days: 1));
-    emit(RefreshState(_date));
     loadExtract();
   }
 }

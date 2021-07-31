@@ -25,7 +25,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final double appBarHeight = 200;
-  final double spaceIndicatorHeight = 120;
+  final double spaceIndicatorHeight = 130;
   final double balanceResumeHeight = 130;
   final double pricesHeight = 130;
   HomeCubit cubit;
@@ -44,7 +44,8 @@ class _HomePageState extends State<HomePage> {
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {},
         builder: (context, state) {
-          return Scaffold(appBar: _buildAppBar(), body: _build(state));
+          return Scaffold(
+              appBar: _buildAppBar(), body: Center(child: _build(state)));
         },
       ),
     );
@@ -82,6 +83,7 @@ class _HomePageState extends State<HomePage> {
     return Container(
       color: AppColors.secondary,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GestureDetector(
             onTap: () async {
@@ -93,10 +95,15 @@ class _HomePageState extends State<HomePage> {
                 current: dashboard.capacitySpace.occupiedParkingLots,
                 height: spaceIndicatorHeight),
           ),
-          BalanceResumeWidget(
-            height: balanceResumeHeight,
-            amount: dashboard.balanceResume.amount,
-            date: dashboard.balanceResume.date,
+          GestureDetector(
+            onTap: () {
+              Modular.to.pushNamed(Routes.extract);
+            },
+            child: BalanceResumeWidget(
+              height: balanceResumeHeight,
+              amount: dashboard.balanceResume.amount,
+              date: dashboard.balanceResume.date,
+            ),
           ),
           PriceWidget(height: pricesHeight, prices: dashboard.priceList.prices)
         ],

@@ -193,14 +193,17 @@ class _SpaceManagamentPageState extends State<SpaceManagamentPage> {
       }
     }
 
-    return Stack(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: sessions,
-        ),
-      ],
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: sessions,
+          ),
+        ],
+      ),
     );
   }
 

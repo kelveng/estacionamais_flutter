@@ -69,7 +69,7 @@ class ProcessTicketWidget extends StatelessWidget {
                 CustomTextFieldWidget(
                   controller: placeController,
                   title: "Placa Veículo",
-                  hintText: "ZZZ9999",
+                  hintText: "Digite a placa",
                 ),
                 CustomTextFieldWidget(
                   enable: false,
