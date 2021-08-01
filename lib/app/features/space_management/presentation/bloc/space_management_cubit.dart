@@ -35,7 +35,8 @@ class SpaceManagementCubit extends Cubit<SpaceManagementState> {
     result.fold((error) {
       if (error is NoConnectionFailure)
         return emit(ErrorState([], "Sem conexao"));
-      if (error is ServerFailure) return emit(ErrorState([], "Sem conexao"));
+      if (error is ServerFailure)
+        return emit(ErrorState([], "Erro no servidor."));
     }, (dashboard) {
       _spaces = dashboard;
       emit(SucessLoadSpacesState(_spaces));
@@ -44,7 +45,7 @@ class SpaceManagementCubit extends Cubit<SpaceManagementState> {
 
   void selectSpace(Space space) async {
     if (!space.isBusy) {
-      emit(RegisterEntryState(_spaces, space, true, ""));
+      emit(LoadingState([]));
       final result = await _getHourServerUseCase(NoParam());
       result.fold((error) {
         if (error is NoConnectionFailure)
@@ -56,7 +57,7 @@ class SpaceManagementCubit extends Cubit<SpaceManagementState> {
         return emit(RegisterEntryState(_spaces, space, false, hour));
       });
     } else {
-      emit(ManagmentTicketState(_spaces, space, null, true, ""));
+      emit(LoadingState([]));
       final result = await _getTicketUseCase(ParamsId(space.ticketId));
       result.fold((error) {
         if (error is NoConnectionFailure)
@@ -114,7 +115,7 @@ class SpaceManagementCubit extends Cubit<SpaceManagementState> {
 
   void cancelTicket(Space space, Ticket ticket) async {
     emit(LoadingState(_spaces));
-    final result = await _paymentTicketUseCase(ticket);
+    final result = await _cancelTicketUseCase(ticket);
 
     result.fold((error) {
       if (error is NoConnectionFailure)

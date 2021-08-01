@@ -24,12 +24,10 @@ class SucessState extends HomeState {
   List<Object> get props => [dashboard];
 }
 
-class NoConnectionErrorState extends HomeState {
-  @override
-  List<Object> get props => [];
-}
+class ErrorState extends HomeState {
+  final String error;
 
-class ServerErrorState extends HomeState {
+  ErrorState(this.error);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [error];
 }

@@ -13,8 +13,8 @@ class HomeCubit extends Cubit<HomeState> {
     final result = await getDashboardUseCase(NoParams());
 
     result.fold((error) {
-      if (error is NoConnectionFailure) return emit(NoConnectionErrorState());
-      if (error is ServerFailure) return emit(ServerErrorState());
+      if (error is NoConnectionFailure) return emit(ErrorState("Sem conexao"));
+      if (error is Failure) return emit(ErrorState("Servidor falhou"));
     }, (dashboard) => emit(SucessState(dashboard)));
   }
 }

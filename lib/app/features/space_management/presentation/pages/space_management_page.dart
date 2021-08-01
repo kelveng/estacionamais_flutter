@@ -1,6 +1,8 @@
 import 'package:estaciona_mais/app/common/icons/icons_app.dart';
+import 'package:estaciona_mais/app/common/mixins/modal_mixin.dart';
 import 'package:estaciona_mais/app/common/themes/app_colors.dart';
 import 'package:estaciona_mais/app/common/themes/app_text_styles.dart';
+import 'package:estaciona_mais/app/common/widgets/error_modal_widget.dart';
 import 'package:estaciona_mais/app/features/space_management/data/models/space_model.dart';
 import 'package:estaciona_mais/app/features/space_management/domain/entities/entities.dart';
 import 'package:estaciona_mais/app/features/space_management/presentation/bloc/space_management_cubit.dart';
@@ -20,7 +22,8 @@ class SpaceManagamentPage extends StatefulWidget {
   _SpaceManagamentPageState createState() => _SpaceManagamentPageState();
 }
 
-class _SpaceManagamentPageState extends State<SpaceManagamentPage> {
+class _SpaceManagamentPageState extends State<SpaceManagamentPage>
+    with ModalMixin {
   final List<String> configMap = ["A", "FREEI", "B", "C", "FREEE", "D"];
   SpaceManagementCubit cubit;
 
@@ -51,7 +54,10 @@ class _SpaceManagamentPageState extends State<SpaceManagamentPage> {
               ],
             ),
           ),
-          body: BlocBuilder<SpaceManagementCubit, SpaceManagementState>(
+          body: BlocConsumer<SpaceManagementCubit, SpaceManagementState>(
+            listener: (context, state) {
+              _buildSheet(context, state);
+            },
             builder: (context, state) {
               return Stack(
                 fit: StackFit.expand,
@@ -64,7 +70,6 @@ class _SpaceManagamentPageState extends State<SpaceManagamentPage> {
                     color: Color.fromRGBO(0, 0, 0, 0.7),
                   ),
                   _build(state),
-                  _buildOption(state)
                 ],
               );
             },
@@ -74,65 +79,97 @@ class _SpaceManagamentPageState extends State<SpaceManagamentPage> {
     );
   }
 
-  Widget _buildOption(state) {
+  _buildSheet(context, state) {
     if (state is RegisterEntryState) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
+      modalSheet(
+          context,
           ProcessTicketWidget(
             isLoading: state.isLoadingHour,
             hourNow: state.hour,
             spaceDescription: state.space.description,
-            onPressConfirm: (place) => cubit.createTicket(state.space, place),
-            onPressCancel: () => cubit.backToMap(),
-          )
-        ],
-      );
+            onPressConfirm: (place) {
+              Modular.to.pop();
+              cubit.createTicket(state.space, place);
+            },
+            onPressCancel: () {
+              Modular.to.pop();
+            },
+          ));
     } else if (state is ErrorProcessState) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
+      modalSheet(
+          context,
           ProcessTicketWidget(
             message: state.error,
             isLoading: false,
             spaceDescription: state.space.description,
-            onPressConfirm: (place) => cubit.createTicket(state.space, place),
-            onPressCancel: () => cubit.backToMap(),
-          )
-        ],
-      );
-    }
-    if (state is ManagmentTicketState) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          ManagementTicketWidget(
-            ticket: state.ticket,
-            isLoading: state.isLoading,
-            hasError: state.error.isNotEmpty,
-            message: state.error,
-            spaceDescription: state.space.description,
-            onPressConfirm: () =>
-                cubit.paymentTicket(state.space, state.ticket),
-            onPressCancel: () => cubit.cancelTicket(state.space, state.ticket),
-            onPressBack: () => cubit.backToMap(),
-          )
-        ],
-      );
-    } else {
-      return Container();
+            onPressConfirm: (place) {
+              Modular.to.pop();
+              cubit.createTicket(state.space, place);
+            },
+            onPressCancel: () {
+              Modular.to.pop();
+            },
+          ));
+    } else if (state is ManagmentTicketState) {
+      modalSheet(
+          context,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ManagementTicketWidget(
+                ticket: state.ticket,
+                isLoading: state.isLoading,
+                hasError: state.error.isNotEmpty,
+                message: state.error,
+                spaceDescription: state.space.description,
+                onPressConfirm: () {
+                  Modular.to.pop();
+                  cubit.paymentTicket(state.space, state.ticket);
+                },
+                onPressCancel: () {
+                  Modular.to.pop();
+                  cubit.cancelTicket(state.space, state.ticket);
+                },
+                onPressBack: () {
+                  Modular.to.pop();
+                },
+              )
+            ],
+          ));
+    } else if (state is ErrorState) {
+      modalSheet(
+          context,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ErrorModalWidget(
+                  hasTryAgain: true,
+                  onPressTryAgain: () {
+                    Modular.to.pop();
+                    cubit.loadSpaces();
+                  },
+                  onPressBack: () {
+                    Modular.to.pop();
+                    Modular.to.pop();
+                  },
+                  message: state.error)
+            ],
+          ));
     }
   }
 
   Widget _build(state) {
+    if (state is ErrorState) return Container();
     return Container(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
             height: AppBar().preferredSize.height,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -143,9 +180,10 @@ class _SpaceManagamentPageState extends State<SpaceManagamentPage> {
               )
             ],
           ),
-          state is LoadingState
-              ? _buildShimmerLoading()
-              : _buildMap(state.spaces)
+          Expanded(
+              child: state is LoadingState
+                  ? _buildShimmerLoading()
+                  : _buildMap(state.spaces))
         ],
       ),
     );
@@ -164,27 +202,31 @@ class _SpaceManagamentPageState extends State<SpaceManagamentPage> {
 
     for (var i = 0; i < configMap.length; i++) {
       if (configMap[i].contains("FREE")) {
-        sessions.add(Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Text(
-                configMap[i] == "FREEI" ? "Entrada" : "Saída",
-                style: TextStyles.titleIndicator,
-              ),
+        sessions.add(Expanded(
+          child: Container(
+            height: 300,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Text(
+                    configMap[i] == "FREEI" ? "Entrada" : "Saída",
+                    style: TextStyles.titleIndicator,
+                  ),
+                ),
+                Container(
+                    width: 60,
+                    child: Icon(
+                      configMap[i] == "FREEI"
+                          ? Icons.arrow_circle_down_sharp
+                          : Icons.arrow_circle_up,
+                      size: 50,
+                      color: Colors.white,
+                    )),
+              ],
             ),
-            Container(
-                width: 60,
-                child: Icon(
-                  configMap[i] == "FREEI"
-                      ? Icons.arrow_circle_down_sharp
-                      : Icons.arrow_circle_up,
-                  size: 50,
-                  color: Colors.white,
-                )),
-            Container()
-          ],
+          ),
         ));
       } else {
         List<Space> spacesSessions =
@@ -193,17 +235,15 @@ class _SpaceManagamentPageState extends State<SpaceManagamentPage> {
       }
     }
 
-    return Expanded(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: sessions,
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: sessions,
+        ),
+      ],
     );
   }
 

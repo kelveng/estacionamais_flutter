@@ -66,7 +66,7 @@ class SpaceIndicatorWidget extends StatelessWidget {
                 ],
               )),
           Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+            padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

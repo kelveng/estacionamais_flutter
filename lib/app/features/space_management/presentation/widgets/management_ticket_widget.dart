@@ -104,7 +104,7 @@ class ManagementTicketWidget extends StatelessWidget {
               ),
               CustomTextFieldWidget(
                 initialValue: DateTimeUtils.getHourDate(ticket.exitTime),
-                title: "Hora Entrada",
+                title: "Hora Saída",
                 hintText: "99:99",
               ),
             ],

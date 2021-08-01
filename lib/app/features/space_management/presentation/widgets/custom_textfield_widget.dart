@@ -9,13 +9,15 @@ class CustomTextFieldWidget extends StatelessWidget {
   final String hintText;
   final bool enable;
   final String initialValue;
+  final bool hasFocus;
   const CustomTextFieldWidget(
       {Key key,
       this.controller,
       this.title,
       this.hintText,
-      this.enable = true,
-      this.initialValue})
+      this.enable = false,
+      this.initialValue,
+      this.hasFocus = false})
       : super(key: key);
 
   @override
@@ -36,9 +38,8 @@ class CustomTextFieldWidget extends StatelessWidget {
           ),
           child: TextFormField(
             initialValue: initialValue,
-            maxLines: 1,
             enabled: enable,
-            inputFormatters: [UpperCaseTextFormatter()],
+            autofocus: hasFocus,
             textAlign: TextAlign.center,
             controller: controller,
             decoration: InputDecoration(

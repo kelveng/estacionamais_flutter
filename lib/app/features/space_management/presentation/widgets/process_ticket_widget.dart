@@ -67,12 +67,12 @@ class ProcessTicketWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 CustomTextFieldWidget(
+                  enable: true,
                   controller: placeController,
                   title: "Placa Veículo",
                   hintText: "Digite a placa",
                 ),
                 CustomTextFieldWidget(
-                  enable: false,
                   controller: hourController,
                   title: "Hora Entrada",
                   hintText: "99:99",
@@ -94,7 +94,8 @@ class ProcessTicketWidget extends StatelessWidget {
                     CustomButtonWidget(
                       backGroundColor: AppColors.green,
                       title: "Entrada",
-                      onPress: () => onPressConfirm(placeController.text),
+                      onPress: () =>
+                          onPressConfirm(placeController.text.toUpperCase()),
                     )
                   ],
                 )
